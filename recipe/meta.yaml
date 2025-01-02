@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/portray-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/portray-{{ version }}.tar.gz
   sha256: a9dd2973a0235051c5b68a29390c3eeee192dc248cc2d944452ee9c02423b47d
 
 build:
@@ -14,15 +14,15 @@ build:
     - portray = portray.cli:__hug__.cli
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
     - poetry
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - gitpython >=3.0
     - hug >=2.6
     - livereload >=2.6.3
@@ -45,6 +45,7 @@ test:
   requires:
     - pip
     - git
+    - python {{ python_min }}
 
 about:
   home: https://github.com/timothycrosley/portray
